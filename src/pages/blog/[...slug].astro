@@ -1,10 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import LikeButton from '@/components/likes/LikeButton.vue'
 
+export const prerender = true
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts.map((post) => ({
+  return posts.map((post: { slug: any; }) => ({
     params: { slug: post.slug },
     props: post,
   }));
@@ -16,5 +18,8 @@ const { Content } = await post.render();
 ---
 
 <BlogPost {...post.data}>
+  <div style={{height:'40px'}}>
+    <LikeButton postId={post.id} client:only="vue" />
+  </div>
   <Content />
 </BlogPost>
