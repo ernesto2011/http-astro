@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import LikeButton from '@/components/likes/LikeButton.vue'
+import LikeButtonAction from '@/components/likes/LikeButtonAction.vue';
 
 export const prerender = true
 export async function getStaticPaths() {
@@ -19,7 +19,7 @@ const { Content } = await post.render();
 
 <BlogPost {...post.data}>
   <div style={{height:'40px'}}>
-    <LikeButton postId={post.id} client:only="vue" />
+    <LikeButtonAction postId={post.id} client:only="vue" />
   </div>
   <Content />
 </BlogPost>
