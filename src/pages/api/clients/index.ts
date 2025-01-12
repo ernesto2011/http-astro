@@ -1,10 +1,15 @@
+import prisma from "@/database";
 import type { APIRoute } from "astro";
-import { Clients, db } from "astro:db";
+import {v4 as UUID} from "uuid";
 
 export const prerender = false;
 
 export const GET: APIRoute = async ({ params, request })=>{
-    const clients = await db.select().from(Clients);
+    const clients = await prisma.clients.findMany({
+        orderBy: {
+            name: 'asc'
+        }
+    })
     return new Response(JSON.stringify(clients), {
         status: 200,
         headers: {
@@ -15,13 +20,16 @@ export const GET: APIRoute = async ({ params, request })=>{
 export const POST: APIRoute = async ({ params, request })=>{
     try {
         const {id, ...body} = await request.json();
-        const {lastInsertRowid}=await db.insert(Clients).values({
-            ...body
-        })
+        const client = await prisma.clients.create({
+            data: {
+                ...body,
+                id: UUID()
+            }
+        }
+        )
         return new Response(JSON.stringify({
             method: 'POST',
-            id: +lastInsertRowid!.toString(),
-            ...body
+            client
         }), {
             status: 201,
             headers: {
@@ -33,7 +41,7 @@ export const POST: APIRoute = async ({ params, request })=>{
             method: 'POST',
             error: error
         }), {
-            status: 201,
+            status: 400,
             headers: {
                 'Content-Type': 'application/json'
             }

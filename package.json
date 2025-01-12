@@ -18,15 +18,18 @@
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vue": "^5.0.2",
+    "@prisma/client": "6.2.1",
     "astro": "^5.0.9",
     "canvas-confetti": "^1.9.3",
     "lodash.debounce": "^4.0.8",
     "sharp": "^0.33.5",
     "typescript": "^5.4.5",
+    "uuid": "^11.0.5",
     "vue": "^3.5.13"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.4",
-    "@types/lodash.debounce": "^4.0.9"
+    "@types/lodash.debounce": "^4.0.9",
+    "prisma": "6.2.1"
   }
 }
