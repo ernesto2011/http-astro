@@ -21,3 +21,9 @@ model Place {
   avg_rating  Decimal @db.Decimal
   image       String  @db.VarChar
 }
+
+model Post {
+  id    String  @id @db.VarChar
+  title String? @db.VarChar
+  likes Int?    @default(0)
+}

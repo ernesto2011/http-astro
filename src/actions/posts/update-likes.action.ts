@@ -10,6 +10,8 @@ export const updatePostLikes = defineAction({
   }),
   handler: async ({ postId, increment }) => {
     // const posts = await db.select().from(Posts).where(eq(Posts.id, postId));
+    console.log('si llego al action??');
+    
     const { data, error } = await actions.getPostLikes(postId);
     if (error) {
       console.log(error);
